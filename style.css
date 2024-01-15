@@ -20,7 +20,7 @@ body {
     border: 10px solid #0c0c0c;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     justify-content: flex-start;
     align-items: center;
 }
