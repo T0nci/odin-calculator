@@ -7,4 +7,63 @@
 body {
     font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;
+    background-color: #1C1C1C;
+    font-weight: bold;
+}
+
+.calculator {
+    margin: 50px auto 0;
+    width: 500px;
+    padding: 32px;
+    background-color: #000;
+    border-radius: 50px;
+    border: 10px solid #0c0c0c;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.display {
+    font-size: 60px;
+    text-align: right;
+    background-color: #000;
+    color: #fff;
+    width: 100%;
+    padding: 0 32px;
+}
+
+.row > button {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 50%;
+    width: 95px;
+    height: 95px; 
+}
+
+.row .utility {
+    background-color: #D4D4D2;
+    color: #000;
+    font-weight: 400;
+}
+
+.row .number {
+    background-color: #505050;
+    color: #fff;
+}
+
+.row .operator {
+    background-color: #FF9500;
+    color: #fff;
 }
