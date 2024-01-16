@@ -51,12 +51,12 @@ body {
 }
 
 .row .utility {
-    background-color: cyan;
+    background-color: #D4D4D2; /* cyan or #D4D4D2 */
     color: #000;
     font-weight: 400;
 }
 
-.row .number {
+.row .number, .dot {
     background-color: #505050;
     color: #fff;
 }
