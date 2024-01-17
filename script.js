@@ -16,6 +16,7 @@ let displayValue = display.textContent; // Variable used to store the numbers
 numbers.forEach(button => button.addEventListener("click", populateDisplay));
 operators.forEach(button => button.addEventListener("click", useOperand));
 utility.forEach(button => button.addEventListener("click", useUtility));
+dot.addEventListener("click", addDot);
 
 
 function add(a, b) {
@@ -140,4 +141,14 @@ function clear() { // callback
     num2 = 0;
     operator = "";
     display.textContent = "0";
+}
+
+
+function addDot() {
+    if (numIsSensitive) {
+        display.textContent = "0.";
+        numIsSensitive = false;
+    } else if (!display.textContent.includes(".")) {
+        display.textContent += ".";
+    }
 }
