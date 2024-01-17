@@ -14,9 +14,10 @@ let numIsSensitive = false; // when number is answer or switching first operand
 let displayValue = display.textContent; // Variable used to store the numbers
 
 numbers.forEach(button => button.addEventListener("click", populateDisplay));
-operators.forEach(button => button.addEventListener("click", useOperand));
+operators.forEach(button => button.addEventListener("click", useOperator));
 utility.forEach(button => button.addEventListener("click", useUtility));
 dot.addEventListener("click", addDot);
+window.addEventListener("keydown", addKeyboardSupport); // window, not doc
 
 
 function add(a, b) {
@@ -55,8 +56,14 @@ function operate(a, b, operator) {
 }
 
 
-function populateDisplay(event) {
-    let number = event.target.textContent;
+function populateDisplay(eventOrKey) {
+    // Keyboard support
+    let number;
+    if (checkIfKeyboard(eventOrKey)) number = eventOrKey;
+    else number = eventOrKey.target.textContent;
+    // Checks if an event is passed in or a key(string)
+    // let number = event.target.textContent;
+
     if (display.textContent === "0" || numIsSensitive) {
         displayValue = (display.textContent = number);
         numIsSensitive = false;
@@ -68,8 +75,14 @@ function populateDisplay(event) {
 }
 
 
-function useOperand(event) {
-    let currentOperator = event.target.textContent;
+function useOperator(eventOrKey) {
+    // Keyboard support
+    let currentOperator;
+    if (checkIfKeyboard(eventOrKey)) currentOperator = eventOrKey;
+    else currentOperator = eventOrKey.target.textContent;
+    // Checks if an event is passed in or a key(string)
+    // let currentOperator = event.target.textContent;
+    
     if (currentOperator === "=") {
         if (!operator || numIsSensitive) { // If there isn't operator or num2
             return alert("Missing Arguments");
@@ -109,10 +122,19 @@ function calculate() { // Callback
 }
 
 
-function useUtility(event) {
-    if (event.target.textContent === "AC") {
+function useUtility(eventOrKey) {
+    // Keyboard support
+    let utility = "";
+    if (checkIfKeyboard(eventOrKey)) {
+        if (eventOrKey === "Delete") utility = "AC";
+        else if (eventOrKey === "Backspace") utility = "DEL";
+    } else utility = eventOrKey.target.textContent;
+    // Checks if an event is passed in or a key(string)
+    // let utility = event.target.textContent;
+
+    if (utility === "AC") {
         clear();
-    } else if (event.target.textContent === "DEL") {
+    } else if (utility === "DEL") {
         if (numIsSensitive) {
             clear();
         } else if (display.textContent.length === 1 || 
@@ -151,4 +173,36 @@ function addDot() {
     } else if (!display.textContent.includes(".")) {
         display.textContent += ".";
     }
+}
+
+
+function addKeyboardSupport(event) {
+    event.preventDefault();
+
+    let key = event.key;
+
+    const allowedKeys = [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "+", "-", "*", "/", "=", "Enter",
+        "Backspace", "Delete", "."
+    ];
+
+    if (allowedKeys.includes(key)) {
+        if (key === "Backspace" || key === "Delete") {
+            useUtility(key);
+        } else if (Number.isInteger(parseFloat(key))) {
+            populateDisplay(key);
+        } else if (allowedKeys.slice(10, 16).includes(key)) {
+            if (key === "Enter") key = "=";
+            useOperator(key);
+        } else {
+            addDot();
+        }
+    }
+}
+
+
+function checkIfKeyboard(eventOrKey) { // callback
+    return typeof eventOrKey === "string";
+    // checks if an event is passed in or a key
 }
