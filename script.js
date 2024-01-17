@@ -7,6 +7,7 @@ const numbers = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
 const utility = document.querySelectorAll(".utility");
 const dot = document.querySelector(".dot");
+const buttons = document.querySelectorAll("button");
 
 // Variable used to update the display value to new number when needed
 let numIsSensitive = false; // when number is answer or switching first operand 
@@ -17,7 +18,12 @@ numbers.forEach(button => button.addEventListener("click", populateDisplay));
 operators.forEach(button => button.addEventListener("click", useOperator));
 utility.forEach(button => button.addEventListener("click", useUtility));
 dot.addEventListener("click", addDot);
-window.addEventListener("keydown", addKeyboardSupport); // window, not doc
+window.addEventListener("keydown", addKeyboardSupport); // window or doc
+
+// Prevents focus on buttons, so when clicking Enter it prevents button click
+buttons.forEach(button => button.addEventListener("mousedown", 
+    (event) => event.preventDefault()
+));
 
 
 function add(a, b) {
@@ -177,7 +183,7 @@ function addDot() {
 
 
 function addKeyboardSupport(event) {
-    event.preventDefault();
+    //event.preventDefault();
 
     let key = event.key;
 
