@@ -94,7 +94,7 @@ function useOperand(event) {
 }
 
 
-function calculate() {
+function calculate() { // Callback
     num2 = parseFloat(display.textContent);
     num1 = operate(num1, num2, operator);
 
@@ -124,7 +124,7 @@ function useUtility(event) {
 }
 
 
-function checkDivide() {
+function checkDivide() { // callback
     if (operator === "/" && parseFloat(display.textContent) === 0) {
         display.textContent = "Bro! No dividing by 0";
         num1 = num2 = 0;
@@ -135,7 +135,7 @@ function checkDivide() {
 }
 
 
-function clear() {
+function clear() { // callback
     num1 = 0;
     num2 = 0;
     operator = "";
